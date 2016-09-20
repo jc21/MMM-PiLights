@@ -1,0 +1,16 @@
+{
+  "name": "MMM-PiLights",
+  "version": "1.1.0",
+  "description": "Magic Mirror control of LED Strip",
+  "keywords": [
+    "magic mirror",
+    "smart mirror",
+    "LED",
+    "module"
+  ],
+  "author": "Jamie Curnow",
+  "license": "MIT",
+  "dependencies": {
+    "lpd8806-async": "^0.2.2"
+  }
+}
