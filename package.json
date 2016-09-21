@@ -8,9 +8,19 @@
     "LED",
     "module"
   ],
+  "scripts": {
+    "postinstall": "node_modules/.bin/electron-rebuild -e ../../node_modules/electron-prebuilt"
+  },
   "author": "Jamie Curnow",
   "license": "MIT",
   "dependencies": {
+    "ajv": "^4.7.0",
+    "async": "^2.0.1",
+    "body-parser": "latest",
+    "color": "^0.11.3",
     "lpd8806-async": "^0.2.2"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.2.1"
   }
 }
