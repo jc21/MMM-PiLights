@@ -81,6 +81,9 @@ what you'd use in your module:
 this.sendNotification('PILIGHTS_SEQUENCE', 'blue_pulse');
 ```
 
+My other MagicMirror module is able to trigger light sequences with notifications:
+[MMM-IFTTT](https://github.com/jc21/MMM-IFTTT)
+
 ## Trigger from a endpoint
 
 The GET endpoint is pretty simple:
