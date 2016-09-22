@@ -7,7 +7,7 @@ MagicMirror Module to control a led strip attached to a Raspberry Pi
 This module is specifically meant for the Raspberry Pi system, using SPI and a LPD8806
 LED strip. It may be compatible with other LED strips, but this has not been tested.
 
-[Buy the LPD8806 LED Strip here](https://www.adafruit.com/products/306)
+[Buy the LPD8806 LED Strip here](https://www.adafruit.com/products/306) and [learn how to connect it here](https://learn.adafruit.com/light-painting-with-raspberry-pi/hardware)
 
 If using Raspbian, you will need to enable SPI:
 
