@@ -180,6 +180,7 @@ module.exports = NodeHelper.create({
      */
     stopAnimation: function () {
         //console.log('[PiLights] Animation stopped.');
+        this.stopAnimationRequest = true;
         this.animationRunning = false;
     },
 
