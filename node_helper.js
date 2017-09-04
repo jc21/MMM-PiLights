@@ -4,7 +4,6 @@ const _          = require('lodash');
 const Color      = require('color');
 const NodeHelper = require('node_helper');
 const bodyParser = require('body-parser');
-const LPD8806    = require('lpd8806-async');
 const async      = require('async');
 const moment     = require('moment');
 
@@ -20,6 +19,7 @@ module.exports = NodeHelper.create({
     animationRunning:     false,
     stopAnimationRequest: false,
     defaultSpeed:         100,
+    type: 'ws2801',
 
     /**
      * node_helper start method
@@ -74,14 +74,22 @@ module.exports = NodeHelper.create({
 
             try {
                 this.log('Trying to load leds', true);
-
-                // Internal reference to lpd8806-async
-                this.leds = new LPD8806(this.config.ledCount, this.config.device);
-
-                // Initialize off
-                this.leds.allOFF();
-                this.leds.setMasterBrightness(this.config.brightness);
-
+                this.type = this.config.type;
+                if (this.type == 'ws2801') {
+                    // Internal reference to rpi-ws2801
+                    this.leds = require("rpi-ws2801");
+                    this.leds.connect(this.config.ledCount, this.config.device);
+                    // Initialize off
+                    this.leds.clear();
+                } else if (this.type == 'lpd8806') {
+                    // Internal reference to lpd8806-async
+                    var LPD8806 = require('lpd8806-async');
+                    this.leds = new LPD8806(this.config.ledCount, this.config.device);
+                    
+                    // Initialize off
+                    this.leds.allOFF();
+                    this.leds.setMasterBrightness(this.config.brightness);
+                }
                 this.log('Leds connected ok', true);
 
             } catch (err) {
@@ -93,6 +101,7 @@ module.exports = NodeHelper.create({
             let iterations = 2;
             let sequence   = payload;
             let delay      = 0;
+            
 
             if (typeof payload === 'object') {
                 sequence   = payload.sequence;
@@ -238,7 +247,11 @@ module.exports = NodeHelper.create({
     fillRGB: function(r, g, b) {
         if (this.leds) {
             this.switchAnimation(() => {
-                this.leds.fillRGB(r, g, b);
+                if (this.type == 'ws2801'){
+                    this.leds.fill(r, g, b);
+                }else if (this.type == 'lpd8806'){
+                    this.leds.fillRGB(r, g, b);
+                }
                 this.stopAnimation();
             });
         }
@@ -249,7 +262,12 @@ module.exports = NodeHelper.create({
      */
     off: function() {
         if (this.leds) {
-            this.leds.allOFF();
+            if (this.type == 'ws2801'){
+                this.leds.clear();
+            }else if (this.type == 'lpd8806'){
+                this.leds.allOFF();
+            }
+            
             this.stopAnimation();
         }
     },
@@ -296,12 +314,16 @@ module.exports = NodeHelper.create({
                 return;
             }
 
-            self.leds.setMasterBrightness(level);
-            self.leds.fill(new Color({
-                r: r,
-                g: g,
-                b: b
-            }));
+            if (self.type == 'ws2801') {
+                self.leds.fill(r * level,g * level,b * level);
+            } else if (self.type == 'lpd8806') {
+                self.leds.setMasterBrightness(level);
+                self.leds.fill(new Color({
+                    r: r,
+                    g: g,
+                    b: b
+                }));
+            }
 
             setTimeout(performStep, speed);
         }
