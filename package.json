@@ -18,7 +18,8 @@
     "async": "latest",
     "body-parser": "latest",
     "color": "latest",
-    "lpd8806-async": "latest"
+    "lpd8806-async": "latest",
+    "rpi-ws2801": "latest"
   },
   "devDependencies": {
     "electron-rebuild": "latest"
