@@ -18,8 +18,8 @@
     "async": "latest",
     "body-parser": "latest",
     "color": "latest",
-    "lpd8806-async": "latest",
-    "rpi-ws2801": "https://github.com/Trekky12/node-rpi-ws2801/tarball/master"
+    "lpd8806-async": "github:Trekky12/LPD8806-node",
+    "rpi-ws2801": "github:Trekky12/node-rpi-ws2801"
   },
   "devDependencies": {
     "electron-rebuild": "latest"
