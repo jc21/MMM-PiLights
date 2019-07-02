@@ -78,13 +78,13 @@ module.exports = NodeHelper.create({
                 if (this.type == 'ws2801') {
                     // Internal reference to rpi-ws2801
                     this.leds = require("rpi-ws2801");
-                    this.leds.connect(this.config.ledCount, this.config.device);
+                    this.leds.connect(this.config.ledCount, this.config.bus, this.config.device);
                     // Initialize off
                     this.leds.clear();
                 } else if (this.type == 'lpd8806') {
                     // Internal reference to lpd8806-async
                     var LPD8806 = require('lpd8806-async');
-                    this.leds = new LPD8806(this.config.ledCount, this.config.device);
+                    this.leds = new LPD8806(this.config.ledCount, this.config.bus, this.config.device);
                     
                     // Initialize off
                     this.leds.allOFF();
